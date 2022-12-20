@@ -15,24 +15,33 @@ local schema = {
         type = "record",
         fields = {
           -- a standard defined field (typedef), with some customizations
-          { request_header = typedefs.header_name {
+          { enforcer_service_url = typedefs.url {
               required = true,
-              default = "Hello-World" } },
-          { response_header = typedefs.header_name {
+              default = "http://waas-enforcer.kwaf.svc.cluster.local" } },
+          { enforcer_port = typedefs.port {
               required = true,
-              default = "Bye-World" } },
-          { ttl = { -- self defined field
-              type = "integer",
-              default = 600,
-              required = true,
-              gt = 0, }}, -- adding a constraint for the value
+              default = 80 } },
+          { max_req_bytes = {
+                type="number",
+                required = true,
+                default = 100000 } },
+          { connect_timeout = { 
+              type = "string",
+              default = "250ms",
+              required = false } },
+          { fail_open = { 
+              type = "boolean",
+              default = true,
+              required = false } },
+          { timeout_error_code = { 
+              type = "number",
+              default = 406,
+              required = false } },
         },
         entity_checks = {
           -- add some validation rules across fields
           -- the following is silly because it is always true, since they are both required
-          { at_least_one_of = { "request_header", "response_header" }, },
-          -- We specify that both header-names cannot be the same
-          { distinct = { "request_header", "response_header"} },
+          { at_least_one_of = { "enforcer_service_url", "enforcer_port" }, }
         },
       },
     },
