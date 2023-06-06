@@ -1,7 +1,7 @@
 local helpers = require "spec.helpers"
 
 
-local PLUGIN_NAME = "rdwr-kwaf"
+local PLUGIN_NAME = "rdwr-kwaap"
 
 
 for _, strategy in helpers.all_strategies() do if strategy ~= "cassandra" then

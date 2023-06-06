@@ -1,4 +1,4 @@
-local PLUGIN_NAME = "rdwr-kwaf"
+local PLUGIN_NAME = "rdwr-kwaap"
 
 
 -- helper function to validate data against a schema
